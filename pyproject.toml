@@ -1,0 +1,207 @@
+[project]
+name = "food-images-finetuning"
+version = "0.1.0"
+description = "Fine tuning of LiquidAI models on food images"
+readme = "README.md"
+authors = [
+    {name = "Benito Martin"}
+]
+license = {text = ""}
+requires-python = ">=3.12"
+
+dependencies = [
+    "bitsandbytes>=0.48.1",
+    "peft>=0.17.1",
+    "torch==2.8.0",
+    "torchao==0.13.0",
+    "torchvision>=0.23.0",
+    "transformers>=4.57.1",
+    "trl>=0.24.0",
+    "datasets>=4.2.0",
+    "loguru>=0.7.3",
+    "pydantic>=2.12.3",
+    "pyyaml>=6.0.3",
+    "modal>=1.2.1",
+]
+
+#
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.uv.sources]
+torchvision = [
+  { index = "pytorch-cu126", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+
+
+# [[tool.uv.index]]
+# name = "pytorch-cpu"
+# url = "https://download.pytorch.org/whl/cpu"
+# explicit = true
+
+# [tool.uv.sources]
+# torch = [
+#   { index = "pytorch-cpu" },
+# ]
+
+# torchvision = [
+#   { index = "pytorch-cpu" },
+# ]
+
+
+[dependency-groups]
+dev = [
+    "huggingface-hub[cli]>=0.35.3",
+    "ipykernel>=7.0.0",
+    "ipywidgets>=8.1.7",
+    "kaggle>=1.7.4.5",
+    "kagglehub>=0.3.13",
+    "matplotlib>=3.10.7",
+    "prek>=0.2.8",
+    "types-pyyaml>=6.0.12.20250915",
+]
+lint = [
+    "mypy>=1.18.2",
+    "ruff>=0.14.0",
+]
+test = [
+    "pytest>=8.4.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/food_images_finetuning"]
+
+
+######################################
+# --- Commitizien --- #
+######################################
+[tool.commitizen]
+name = "cz_conventional_commits"   # enforce Conventional Commits style
+tag_format = "v$version"           # git tags look like v1.2.3
+version_scheme = "pep440"          # use PEP 440 versions (1.2.3, 1.2.3rc1, etc.)
+version_provider = "uv"            # delegate version reading/bumping to uv
+changelog_start_rev = "v1.0.0"     # changelog will include commits starting after v1.0.0
+major_version_zero = true          # for versions < 1.0.0, feat -> minor, fix -> patch
+update_changelog_on_bump = true    # auto-update CHANGELOG.md on each version bump
+
+######################################
+# --- Bandit --- #
+######################################
+[tool.bandit]
+targets = ["src"]
+
+######################################
+# --- Linting & Formatting Tools --- #
+######################################
+
+[tool.ruff]
+# Assume Python 3.13
+target-version = "py313"
+
+# Same as Black.
+line-length = 100     # Line length of 100 chars (like Black default is 88)
+indent-width = 4      # Indent with 4 spaces (like Black)
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".git-rewrite",
+  ".hg",
+  ".mypy_cache",
+  ".nox",
+  ".pants.d",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "__pypackages__",
+  "_build",
+  "buck-out",
+  "build",
+  "dist",
+  "node_modules",
+  "venv",
+  "notebooks",
+]
+
+# Whether to show an enumeration of all fixed lint violations
+show-fixes = true
+
+# Rules to enable
+lint.select = [
+  "B",      # flake8-bugbear: finds likely bugs and design problems
+  "E",      # pycodestyle: PEP8 errors
+  "F",      # Pyflakes: logical errors
+  "I",      # isort: import order issues
+  "SIM",    # similarity: detects duplicate code
+  "UP",     # pyupgrade: detects outdated syntax
+  "D102",   # Missing docstring for method
+  "D103",   # Missing docstring for function
+  "D414",   # Docstring missing section
+  "D419",   # Empty docstring
+  # "D101", # Uncomment to enforce class docstrings
+]
+
+
+# Rules to ignore (none by default)
+lint.ignore = []
+
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+lint.fixable = ["ALL"]
+
+# Which rules cannot be fixed automatically
+lint.unfixable = []
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10   # Maximum McCabe complexity allowed per function
+
+
+#########################
+# --- Static Typing --- #
+#########################
+
+[tool.mypy]
+files = ["src"]                  # Check all files in src/
+mypy_path = ["src"]              # Add src to Python path so imports work correctly
+exclude = ["notebooks/*"]      # Exclude notebooks/ directory from type checking
+
+ignore_missing_imports = true    # Ignore third-party imports without type hints
+disallow_untyped_defs = true     # Require type annotations for all function definitions
+check_untyped_defs = true        # Check bodies of functions even if no type annotations
+warn_redundant_casts = true      # Warn about redundant casts
+warn_unused_ignores = false      # Warn about unused # type: ignore comments
+warn_return_any = false          # Warn if a function returns Any type
+strict_optional = true           # Enable strict optional checking
+
+
+# # Use `packages` to specify the package root
+# packages = ["src"]
+# explicit_package_bases = true
+
+
+#########################
+# --- Testing Tools --- #
+#########################
+
+[tool.pytest.ini_options]
+testpaths = [ "tests" ]         # Directories where pytest will look for tests
+python_files = [ "test_*.py" ]  # Test file patterns
+addopts = "-ra -v -s"           # Additional command-line options for pytest
+# -r a : Show extra summary info for all tests (skipped, failed, etc.)
+# -v   : Verbose output
+# -s   : Disable output capturing so you can see print() statements in real-time
+
+filterwarnings = [
+    "ignore::DeprecationWarning", # Ignore DeprecationWarnings
+    "ignore::UserWarning"         # Ignore UserWarnings
+]

@@ -1,0 +1,6 @@
+dataset_id: ethz/food101
+split: train
+n_samples: 75750
+seed: 42
+
+model_id: LiquidAI/LFM2-VL-1.6B

@@ -1,0 +1,66 @@
+lora:
+  r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  bias: none
+  target_modules:
+    - q_proj
+    - v_proj
+    - fc1
+    - fc2
+    - gate_proj
+    - up_proj
+    - down_proj
+    - linear
+
+sft:
+  output_dir: /model_output/lfm2-vl-food # Change depending on the config
+  num_train_epochs: 2
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 16
+  learning_rate: 0.0005
+  warmup_ratio: 0.03
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  logging_steps: 10
+  logging_first_step: true
+  optim: adamw_8bit
+  max_length: 512
+  report_to: null
+  eval_strategy: steps
+  eval_steps: 50
+  save_strategy: steps
+  save_steps: 50
+  save_total_limit: 3
+  load_best_model_at_end: true
+  metric_for_best_model: eval_loss
+  lr_scheduler_type: cosine
+
+runtime:
+  gpu: L40S
+  timeout: 7200
+  volume_name: food-classifier-models
+  min_containers: 1
+  max_retries: 1
+
+processor_model:
+  max_image_tokens: 256
+  dtype: bfloat16
+  device_map: auto
+
+train_data:
+  class_list:
+    - hamburger
+    - garlic_bread
+    - hot_dog
+  samples_per_class: 750
+  test_size: 0.2
+  seed: 40
+
+inference:
+  max_new_tokens: 50
+  do_sample: false
+  temperature: null
+  top_p: null
+
+
