@@ -44,10 +44,10 @@ Comparison of model performance on 3-class food image classification:
 
 | Metric | 450M Base | 450M Fine-tuned | 1.6B Base |
 |--------|----------|----------------|-----------|
-| **Overall Accuracy** | 89.1% (401/450) | **94.7%** (426/450) | 96.4% (434/450) |
-| hamburger | 94.6% (139/147) | 96.6% (142/147) | 98.0% (144/147) |
+| **Overall Accuracy** | 89.1% (401/450) | 94.7% (426/450) | **96.4%** (434/450) |
+| hamburger | 94.6% (139/147) | 96.6% (142/147) | **98.0%** (144/147) |
 | garlic_bread | 79.0% (128/162) | **95.1%** (154/162) | 93.2% (151/162) |
-| hot_dog | 95.0% (134/141) | 92.2% (130/141) | 98.6% (139/141) |
+| hot_dog | 95.0% (134/141) | 92.2% (130/141) | **98.6%** (139/141) |
 
 **Summary:** Fine-tuning the 450M model improves accuracy from 89.1% to 94.7% (+5.6 percentage points), bringing it close to the 1.6B base model performance (96.4%).
 
@@ -57,11 +57,11 @@ Comparison of model performance on 5-class food image classification:
 
 | Metric | 450M Base | 450M Fine-tuned | 1.6B Base |
 |--------|----------|----------------|-----------|
-| **Overall Accuracy** | 87.1% (653/750) | **91.5%** (686/750) | 95.1% (713/750) |
-| hamburger | 86.1% (130/151) | 96.0% (145/151) | 95.4% (144/151) |
-| garlic_bread | 84.5% (125/148) | 87.2% (129/148) | 95.3% (141/148) |
-| hot_dog | 97.1% (133/137) | 96.4% (132/137) | 99.3% (136/137) |
-| ceviche | 74.0% (125/169) | **81.7%** (138/169) | 92.3% (156/169) |
+| **Overall Accuracy** | 87.1% (653/750) | 91.5% (686/750) | **95.1%** (713/750) |
+| hamburger | 86.1% (130/151) | **96.0%** (145/151) | 95.4% (144/151) |
+| garlic_bread | 84.5% (125/148) | 87.2% (129/148) | **95.3%** (141/148) |
+| hot_dog | 97.1% (133/137) | 96.4% (132/137) | **99.3%** (136/137) |
+| ceviche | 74.0% (125/169) | 81.7% (138/169) | **92.3%** (156/169) |
 | carrot_cake | 96.6% (140/145) | **97.9%** (142/145) | 93.8% (136/145) |
 
 **Summary:** Fine-tuning the 450M model improves accuracy from 87.1% to 91.5% (+4.4 percentage points) on the 5-class task.
