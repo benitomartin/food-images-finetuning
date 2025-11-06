@@ -1,3 +1,4 @@
+# Used to fine tune the 450M base model (3 classes)
 lora:
   r: 8
   lora_alpha: 16

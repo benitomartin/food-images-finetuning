@@ -17,7 +17,7 @@ from trl import SFTConfig, SFTTrainer
 
 # Local imports
 from food_images_finetuning.loaders.load_dataset import load_dataset
-from food_images_finetuning.modal.utils import get_docker_image, get_retries, get_volume
+from food_images_finetuning.training.utils import get_docker_image, get_retries, get_volume
 from food_images_finetuning.schemas.finetune import FinetuneSettings
 from food_images_finetuning.schemas.model import Model as ModelConfig
 

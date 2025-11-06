@@ -42,29 +42,29 @@ The project supports training on Modal cloud infrastructure and includes evaluat
 
 Comparison of model performance on 3-class food image classification:
 
-| Metric | 450M Base | 450M Fine-tuned | 1.6B Base |
-|--------|----------|----------------|-----------|
-| **Overall Accuracy** | 89.1% (401/450) | 94.7% (426/450) | **96.4%** (434/450) |
-| hamburger | 94.6% (139/147) | 96.6% (142/147) | **98.0%** (144/147) |
-| garlic_bread | 79.0% (128/162) | **95.1%** (154/162) | 93.2% (151/162) |
-| hot_dog | 95.0% (134/141) | 92.2% (130/141) | **98.6%** (139/141) |
+| Metric | 450M Base | 450M Fine-tuned | 1.6B Base | 1.6B Fine-tuned |
+|--------|----------|----------------|-----------|-----------------|
+| **Overall Accuracy** | 91.1% (410/450) | 95.6% (430/450) | 96.7% (435/450) | **98.0%** (441/450) |
+| hamburger | 93.9% (138/147) | 95.2% (140/147) | 98.6% (145/147) | **100.0%** (147/147) |
+| garlic_bread | 84.6% (137/162) | **98.8%** (160/162) | 93.8% (152/162) | 97.5% (158/162) |
+| hot_dog | 95.7% (135/141) | 92.2% (130/141) | **97.9%** (138/141) | 96.5% (136/141) |
 
-**Summary:** Fine-tuning the 450M model improves accuracy from 89.1% to 94.7% (+5.6 percentage points), bringing it close to the 1.6B base model performance (96.4%).
+**Summary:** Fine-tuning the 450M model improves accuracy from 91.1% to 95.6% (+4.5 percentage points). The 1.6B fine-tuned model achieves the best overall performance at 98.0%.
 
 ### 5 Classes Evaluation
 
 Comparison of model performance on 5-class food image classification:
 
-| Metric | 450M Base | 450M Fine-tuned | 1.6B Base |
-|--------|----------|----------------|-----------|
-| **Overall Accuracy** | 87.1% (653/750) | 91.5% (686/750) | **95.1%** (713/750) |
-| hamburger | 86.1% (130/151) | **96.0%** (145/151) | 95.4% (144/151) |
-| garlic_bread | 84.5% (125/148) | 87.2% (129/148) | **95.3%** (141/148) |
-| hot_dog | 97.1% (133/137) | 96.4% (132/137) | **99.3%** (136/137) |
-| ceviche | 74.0% (125/169) | 81.7% (138/169) | **92.3%** (156/169) |
-| carrot_cake | 96.6% (140/145) | **97.9%** (142/145) | 93.8% (136/145) |
+| Metric | 450M Base | 450M Fine-tuned | 1.6B Base | 1.6B Fine-tuned |
+|--------|----------|----------------|-----------|-----------------|
+| **Overall Accuracy** | 85.6% (642/750) | 94.0% (705/750) | 96.7% (725/750) | **97.2%** (729/750) |
+| hamburger | 86.1% (130/151) | 96.7% (146/151) | 98.7% (149/151) | **99.3%** (150/151) |
+| garlic_bread | 79.7% (118/148) | 85.8% (127/148) | **95.9%** (142/148) | 95.3% (141/148) |
+| hot_dog | 97.1% (133/137) | 97.1% (133/137) | 98.5% (135/137) | **99.3%** (136/137) |
+| ceviche | 71.0% (120/169) | 93.5% (158/169) | 95.3% (161/169) | **97.0%** (164/169) |
+| carrot_cake | 97.2% (141/145) | **97.2%** (141/145) | 95.2% (138/145) | 95.2% (138/145) |
 
-**Summary:** Fine-tuning the 450M model improves accuracy from 87.1% to 91.5% (+4.4 percentage points) on the 5-class task.
+**Summary:** Fine-tuning the 450M model improves accuracy from 85.6% to 94.0% (+8.4 percentage points) on the 5-class task. The 1.6B fine-tuned model achieves the best overall performance at 97.2%.
 
 ## Project Structure
 
@@ -138,6 +138,13 @@ Training is configured via YAML files in `src/food_images_finetuning/configs/`:
 
 - **Model configs** (`config_*.yaml`): Specify base model and dataset
 - **Fine-tuning configs** (`finetune_*.yaml`): Configure LoRA, training parameters, and runtime settings
+
+Available fine-tuning configurations, that have been use for each model anc class split:
+
+- `finetune_0.yaml`: 450M base model (3 classes)
+- `finetune_1.yaml`: 450M base model (5 classes)
+- `finetune_2.yaml`: 1.6B base model (3 classes)
+- `finetune_3.yaml`: 1.6B base model (5 classes)
 
 Key configuration sections:
 

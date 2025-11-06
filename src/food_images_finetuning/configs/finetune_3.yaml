@@ -1,7 +1,7 @@
-# Used to fine tune the 450M base model (5 classes)
+# Used to fine tune the 1.6B base model (5 classes)
 lora:
-  r: 8
-  lora_alpha: 16
+  r: 32
+  lora_alpha: 64
   lora_dropout: 0.05
   bias: none
   target_modules:
@@ -15,13 +15,13 @@ lora:
     - linear
 
 sft:
-  output_dir: /model_output/lfm2-vl-food_1 # Change depending on the config
-  num_train_epochs: 2
+  output_dir: /model_output/lfm2-vl-food_3 # Change depending on the config
+  num_train_epochs: 1
   per_device_train_batch_size: 1
   gradient_accumulation_steps: 16
-  learning_rate: 0.0005
-  warmup_ratio: 0.03
-  weight_decay: 0.01
+  learning_rate: 0.00001
+  warmup_ratio: 0.1
+  weight_decay: 0.1
   max_grad_norm: 1.0
   logging_steps: 10
   logging_first_step: true
@@ -49,7 +49,7 @@ processor_model:
   dtype: bfloat16
   device_map: auto
 
-train_data: # Change depending on the config
+train_data:
   class_list:
     - hamburger
     - garlic_bread

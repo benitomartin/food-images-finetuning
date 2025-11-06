@@ -208,3 +208,7 @@ __marimo__/
 HF.md
 EVAL_RESULTS.md
 models/
+3_CLASSES_HYPERTEST.md
+5_CLASSES_HYPERTEST.md
+src/food_images_finetuning/configs/finetune_2_hyper.yaml
+NEW_TESTS.md

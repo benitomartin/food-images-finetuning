@@ -192,17 +192,22 @@ class FoodEvaluator:
             # Clean up prediction (remove any extra text)
             prediction = prediction_text.split("\n")[0].strip()
 
-            # Check if prediction is in valid list
-            if prediction not in self.food_list:
+            # **NORMALIZE PREDICTION - Convert to lowercase and replace spaces with underscores**
+            prediction_normalized = prediction.lower().replace(" ", "_")
+            
+            # Check if normalized prediction is in valid list
+            if prediction_normalized not in self.food_list:
                 # Try to find closest match
-                prediction_lower = prediction.lower()
                 for food in self.food_list:
-                    if food.lower() in prediction_lower or prediction_lower in food.lower():
-                        prediction = food
+                    if food.lower() in prediction_normalized or prediction_normalized in food.lower():
+                        prediction_normalized = food
                         break
+            
+            # Use the normalized prediction
+            prediction = prediction_normalized
 
             if show_prediction:
-                match_symbol = "✅" if prediction.lower() == ground_truth.lower() else "❌"
+                match_symbol = "✅" if prediction == ground_truth else "❌"
                 print(f" {prediction:15s} vs {ground_truth:15s} {match_symbol}")
 
             return {
@@ -236,7 +241,8 @@ class FoodEvaluator:
 
             if result["success"]:
                 total_success += 1
-                if result["prediction"].lower() == result["ground_truth"].lower():
+                # **NORMALIZED COMPARISON - Both are now in same format**
+                if result["prediction"] == result["ground_truth"]:
                     correct += 1
 
         # Calculate metrics
@@ -259,8 +265,9 @@ class FoodEvaluator:
         for food in self.food_list:
             food_samples = [r for r in results if r["ground_truth"] == food and r["success"]]
             if food_samples:
+                # **NORMALIZED COMPARISON**
                 correct_class = sum(
-                    1 for r in food_samples if r["prediction"].lower() == food.lower()
+                    1 for r in food_samples if r["prediction"] == food
                 )
                 acc = 100 * correct_class / len(food_samples)
                 print(f"   {food:15s}: {correct_class:3d}/{len(food_samples):3d} ({acc:5.1f}%)")
@@ -269,7 +276,7 @@ class FoodEvaluator:
         wrong_predictions = [
             r
             for r in results
-            if r["success"] and r["prediction"].lower() != r["ground_truth"].lower()
+            if r["success"] and r["prediction"] != r["ground_truth"]
         ]
         if wrong_predictions:
             print(f"\n❌ Wrong Predictions ({len(wrong_predictions)} samples):")
