@@ -20,6 +20,8 @@
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Evaluation Results](#evaluation-results)
+    - [3 Classes Evaluation](#3-classes-evaluation)
+    - [5 Classes Evaluation](#5-classes-evaluation)
   - [Project Structure](#project-structure)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -27,7 +29,6 @@
     - [Configuration](#configuration)
     - [Training on Modal](#training-on-modal)
     - [Evaluation](#evaluation)
-    - [Testing](#testing)
     - [Quality Checks](#quality-checks)
   - [License](#license)
 
