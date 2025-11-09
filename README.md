@@ -71,12 +71,12 @@ Comparison of model performance on 5-class food image classification:
 ```text
 ├── src/
 │   └── food_images_finetuning/
+│       ├── config.py         # Settings
 │       ├── configs/          # Model and fine-tuning configuration files
 │       ├── evaluation/       # Model evaluation scripts
 │       ├── loaders/          # Dataset and model loaders
 │       ├── training/         # Modal cloud training scripts
 │       └── schemas/          # Pydantic models for validation
-├── config.py                 # Settings
 ├── models/                   # Saved model outputs
 ├── notebooks/                # Jupyter notebooks
 ├── Makefile                  # Development commands
